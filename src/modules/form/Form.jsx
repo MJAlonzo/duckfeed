@@ -51,13 +51,11 @@ function Form() {
       ducks,
       time,
       location,
-      food: {
-        type: foodType,
-        amount: foodAmount,
-      },
+      foodType,
+      foodAmount,
     };
 
-    db.collection("feedings")
+    db.collection("feeds")
       .doc(data.id.toString())
       .set(data)
       .then(() => {
