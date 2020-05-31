@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import CardHeader from "@material-ui/core/CardHeader";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -13,9 +14,9 @@ import Alert from "@material-ui/lab/Alert";
 import { db } from "../../core/firebase";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
+  formContainer: {
     height: "100vh",
+    minHeight: "700px",
   },
   grid: {
     height: "100%",
@@ -98,7 +99,7 @@ function Form() {
   }
 
   return (
-    <>
+    <div className={classes.formContainer}>
       <Grid
         className={classes.grid}
         container
@@ -107,6 +108,7 @@ function Form() {
       >
         <Grid item xs={12} md={6}>
           <Card>
+            <CardHeader title="Help feed the ducks!" />
             <CardContent>
               <TextField
                 id="ducks"
@@ -184,7 +186,7 @@ function Form() {
         notification={notification}
         handleDismiss={handleDismissNotification}
       />
-    </>
+    </div>
   );
 }
 

@@ -1,23 +1,15 @@
 import React from "react";
-
-import { makeStyles } from "@material-ui/core/styles";
+import { Route } from "react-router-dom";
 
 import Form from "./modules/form/Form";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    height: "100vh",
-  },
-}));
+import Dashboard from "./modules/dashboard/Dashboard";
 
 function App() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <Form />
-    </div>
+    <>
+      <Route exact path="/" component={Form} />
+      <Route path="/dashboard" component={Dashboard} />
+    </>
   );
 }
 
