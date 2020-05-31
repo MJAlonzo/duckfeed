@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import update from "immutability-helper";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -6,12 +7,13 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
 import { db } from "../../core/firebase";
+import serverFeedFactory from "./serverFeedFactory";
+import FormFields from "./FormFields";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -23,38 +25,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const numberFieldProps = {
-  type: "number",
-  min: 0,
-};
-
 const initialNotification = {
   open: false,
   message: "",
   severity: "",
 };
 
+const initialFeed = {
+  ducks: 0,
+  time: "",
+  location: "",
+  foodType: "",
+  foodAmount: 0,
+};
+
 function Form() {
-  const [ducks, setDucks] = useState(0);
-  const [time, setTime] = useState("");
-  const [location, setLocation] = useState("");
-  const [foodType, setFoodType] = useState("");
-  const [foodAmount, setFoodAmount] = useState(0);
+  const [feed, setFeed] = useState(initialFeed);
 
   const [notification, setNotification] = useState(initialNotification);
 
   const classes = useStyles();
 
   const addFeeding = () => {
-    const data = {
-      id: new Date().getTime(),
-      ducks,
-      time,
-      location,
-      foodType,
-      foodAmount,
-    };
-
+    const data = serverFeedFactory(feed);
     db.collection("feeds")
       .doc(data.id.toString())
       .set(data)
@@ -74,26 +67,24 @@ function Form() {
       });
   };
 
+  function handleFeedChange(value, key) {
+    const newFeed = update(feed, {
+      [key]: { $set: value },
+    });
+
+    setFeed(newFeed);
+  }
+
   function handleDismissNotification() {
     setNotification(initialNotification);
   }
 
   function handleSubmit() {
-    console.log(ducks);
-    console.log(time);
-    console.log(location);
-    console.log(foodType);
-    console.log(foodAmount);
-
     addFeeding();
   }
 
   function reset() {
-    setDucks(0);
-    setTime("");
-    setLocation("");
-    setFoodType("");
-    setFoodType("");
+    setFeed(initialFeed);
   }
 
   return (
@@ -108,58 +99,7 @@ function Form() {
           <Card>
             <CardHeader title="Help feed the ducks!" />
             <CardContent>
-              <TextField
-                id="ducks"
-                fullWidth
-                label="How Many Ducks"
-                value={ducks}
-                inputProps={numberFieldProps}
-                margin="normal"
-                onChange={(e) => {
-                  setDucks(e.target.value);
-                }}
-              />
-              <TextField
-                id="time"
-                fullWidth
-                label="Time"
-                value={time}
-                margin="normal"
-                onChange={(e) => {
-                  setTime(e.target.value);
-                }}
-              />
-              <TextField
-                id="location"
-                fullWidth
-                label="Location"
-                value={location}
-                margin="normal"
-                onChange={(e) => {
-                  setLocation(e.target.value);
-                }}
-              />
-              <TextField
-                id="foodType"
-                fullWidth
-                label="Food Type"
-                value={foodType}
-                margin="normal"
-                onChange={(e) => {
-                  setFoodType(e.target.value);
-                }}
-              />
-              <TextField
-                id="foodAmount"
-                fullWidth
-                label="Food Amount"
-                value={foodAmount}
-                inputProps={numberFieldProps}
-                margin="normal"
-                onChange={(e) => {
-                  setFoodAmount(e.target.value);
-                }}
-              />
+              <FormFields feed={feed} handleFeedChange={handleFeedChange} />
             </CardContent>
             <CardActions>
               <Button
