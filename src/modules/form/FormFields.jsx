@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TextField from "@material-ui/core/TextField";
+
 import AddressField from "../../components/AddressField";
+import Select from "../../components/Select";
 
 const numberFieldProps = {
   type: "number",
@@ -62,15 +64,30 @@ export default function Form({
           handleFeedChange(value, "location");
         }}
       />
-      <TextField
+      <Select
         id="foodType"
-        fullWidth
-        label="Food Type"
-        value={foodType}
-        margin="normal"
         onChange={(e) => {
           handleFeedChange(e.target.value, "foodType");
         }}
+        value={foodType}
+        options={[
+          {
+            value: "bread",
+            label: "Bread",
+          },
+          {
+            value: "birdFeed",
+            label: "Bird Feed",
+          },
+          {
+            value: "seeds",
+            label: "Seeds",
+          },
+          {
+            value: "other",
+            label: "Other",
+          },
+        ]}
       />
       <TextField
         id="foodAmount"
