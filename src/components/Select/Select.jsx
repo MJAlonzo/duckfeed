@@ -31,8 +31,10 @@ export default function Select({ value, onChange, label, id, options }) {
           id,
         }}
       >
-        {options.map((option) => (
-          <option value={option.value}>{option.label}</option>
+        {options.map((option, index) => (
+          <option key={`${index}-${value}-${label}`} value={option.value}>
+            {option.label}
+          </option>
         ))}
       </MaterialSelect>
     </FormControl>
