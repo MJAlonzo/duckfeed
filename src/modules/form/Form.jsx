@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import update from "immutability-helper";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -11,9 +12,11 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
-import { db } from "../../core/firebase";
-import serverFeedFactory from "./serverFeedFactory";
+import addFeeding from "./addFeeding";
 import FormFields from "./FormFields";
+import { SITE_KEY } from "../../constants/recaptcha";
+
+const recaptchaRef = React.createRef();
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -46,27 +49,6 @@ function Form() {
 
   const classes = useStyles();
 
-  const addFeeding = () => {
-    const data = serverFeedFactory(feed);
-    db.collection("feeds")
-      .doc(data.id.toString())
-      .set(data)
-      .then(() => {
-        setNotification({
-          open: true,
-          message: "Thanks for feeding the ducks!",
-          severity: "success",
-        });
-      })
-      .catch((error) => {
-        setNotification({
-          open: true,
-          message: "There was an error saving the form, please try again.",
-          severity: "error",
-        });
-      });
-  };
-
   function handleFeedChange(value, key) {
     const newFeed = update(feed, {
       [key]: { $set: value },
@@ -80,7 +62,8 @@ function Form() {
   }
 
   function handleSubmit() {
-    addFeeding();
+    addFeeding(feed, setNotification);
+    recaptchaRef.current.reset();
   }
 
   function reset() {
@@ -112,10 +95,20 @@ function Form() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => handleSubmit()}
+                onClick={() => {
+                  recaptchaRef.current.execute();
+                }}
               >
                 Submit
               </Button>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                size="invisible"
+                sitekey={SITE_KEY}
+                onChange={() => {
+                  handleSubmit();
+                }}
+              />
             </CardActions>
           </Card>
         </Grid>
