@@ -1,5 +1,6 @@
 export default function serverFeedFactory({
   ducks,
+  date,
   time,
   location,
   foodType,
@@ -8,7 +9,8 @@ export default function serverFeedFactory({
   return {
     id: new Date().getTime(),
     ducks,
-    time: time,
+    date,
+    time,
     location,
     food: {
       type: foodType,

@@ -15,6 +15,7 @@ Form.propTypes = {
   feed: PropTypes.shape({
     id: PropTypes.string,
     ducks: PropTypes.number,
+    date: PropTypes.string,
     time: PropTypes.string,
     location: PropTypes.string,
     foodType: PropTypes.string,
@@ -24,7 +25,7 @@ Form.propTypes = {
 };
 
 export default function Form({
-  feed: { ducks, time, location, foodType, foodAmount },
+  feed: { ducks, date, time, location, foodType, foodAmount },
   handleFeedChange,
 }) {
   return (
@@ -38,6 +39,19 @@ export default function Form({
         margin="normal"
         onChange={(e) => {
           handleFeedChange(e.target.value, "ducks");
+        }}
+      />
+      <TextField
+        id="date"
+        label="Date"
+        type="date"
+        value={date}
+        margin="normal"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={(e) => {
+          handleFeedChange(e.target.value, "date");
         }}
       />
       <TextField

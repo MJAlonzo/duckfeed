@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import update from "immutability-helper";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -16,7 +16,7 @@ import addFeeding from "./addFeeding";
 import FormFields from "./FormFields";
 import { RECAPTCHA_SITE_KEY } from "../../constants";
 
-const recaptchaRef = React.createRef();
+const recaptchaRef = createRef();
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -34,9 +34,12 @@ const initialNotification = {
   severity: "",
 };
 
+const date = new Date().toISOString().slice(0, 16);
+
 const initialFeed = {
   ducks: 0,
-  time: "",
+  date: date.split("T")[0],
+  time: date.split("T")[1],
   location: "",
   foodType: "",
   foodAmount: 0,
@@ -44,6 +47,8 @@ const initialFeed = {
 
 function Form() {
   const [feed, setFeed] = useState(initialFeed);
+
+  console.log(initialFeed);
 
   const [notification, setNotification] = useState(initialNotification);
 

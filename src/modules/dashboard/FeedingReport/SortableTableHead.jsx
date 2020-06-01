@@ -9,7 +9,7 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 const headCells = [
   { id: "ducks", numeric: true, disablePadding: false, label: "Ducks" },
-  { id: "time", numeric: false, disablePadding: true, label: "Time" },
+  { id: "dateTime", numeric: false, disablePadding: true, label: "Date Time" },
   { id: "location", numeric: false, disablePadding: true, label: "Location" },
   {
     id: "foodType",

@@ -1,10 +1,10 @@
-export default function feedFactory({ id, ducks, time, location, food }) {
+export default function feedFactory({ id, ducks, date, time, location, food }) {
   const { type, amount } = food;
 
   return {
     id,
     ducks,
-    time,
+    dateTime: `${date} - ${time}`,
     location,
     foodType: type,
     foodAmount: amount,

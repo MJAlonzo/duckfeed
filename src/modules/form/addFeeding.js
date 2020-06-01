@@ -3,6 +3,7 @@ import serverFeedFactory from "./serverFeedFactory";
 
 export default function addFeeding(feed, setNotification) {
   const data = serverFeedFactory(feed);
+
   db.collection("feeds")
     .doc(data.id.toString())
     .set(data)

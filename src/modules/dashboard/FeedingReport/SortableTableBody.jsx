@@ -36,7 +36,7 @@ SortableTableBody.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
       ducks: PropTypes.number,
-      time: PropTypes.string,
+      dateTime: PropTypes.string,
       location: PropTypes.string,
       foodType: PropTypes.string,
       foodAmount: PropTypes.number,
@@ -52,7 +52,7 @@ function SortableTableBody({ rows, order, orderBy }) {
       {stableSort(rows, getComparator(order, orderBy)).map((row) => (
         <TableRow key={row.id}>
           <TableCell align="right">{row.ducks}</TableCell>
-          <TableCell>{row.time}</TableCell>
+          <TableCell>{row.dateTime}</TableCell>
           <TableCell>{row.location}</TableCell>
           <TableCell>{row.foodType}</TableCell>
           <TableCell align="right">{row.foodAmount}</TableCell>

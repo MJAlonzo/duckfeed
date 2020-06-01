@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import Table from "@material-ui/core/Table";
@@ -13,7 +13,7 @@ FeedingReport.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
       ducks: PropTypes.number,
-      time: PropTypes.string,
+      dateTime: PropTypes.string,
       location: PropTypes.string,
       foodType: PropTypes.string,
       foodAmount: PropTypes.number,
@@ -23,8 +23,8 @@ FeedingReport.propTypes = {
 };
 
 export default function FeedingReport({ rows, ariaLabel }) {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("time");
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("time");
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
