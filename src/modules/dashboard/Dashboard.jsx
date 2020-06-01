@@ -7,7 +7,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import { db } from "../../core/firebase";
 import feedFactory from "./feedFactory";
-import Table from "../../components/Table";
+import FeedingReport from "./FeedingReport";
 
 const useStyles = makeStyles((theme) => ({
   innerGrid: {
@@ -37,7 +37,7 @@ function Dashboard() {
         <Typography variant="h4">Dashboard</Typography>
         {`<Filter Row>`}
         {feeds && feeds.length ? (
-          <Table rows={feeds} ariaLabel="duck feeding report" />
+          <FeedingReport rows={feeds} ariaLabel="duck feeding report" />
         ) : (
           <Skeleton variant="rect" height={300} />
         )}

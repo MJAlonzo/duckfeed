@@ -11,12 +11,17 @@ const headCells = [
   { id: "ducks", numeric: true, disablePadding: false, label: "Ducks" },
   { id: "time", numeric: false, disablePadding: true, label: "Time" },
   { id: "location", numeric: false, disablePadding: true, label: "Location" },
-  { id: "foodType", numeric: false, disablePadding: true, label: "Food Type" },
+  {
+    id: "foodType",
+    numeric: false,
+    disablePadding: true,
+    label: "Food Type",
+  },
   {
     id: "foodAmount",
     numeric: true,
     disablePadding: false,
-    label: "Food Amount",
+    label: "Food Amount (g)",
   },
 ];
 

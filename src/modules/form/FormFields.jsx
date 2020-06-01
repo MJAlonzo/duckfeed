@@ -59,12 +59,13 @@ export default function Form({
       <AddressField
         id="location"
         label="Location"
-        value={location}
+        address={location}
         setAddress={(value) => {
           handleFeedChange(value, "location");
         }}
       />
       <Select
+        label="Food Type"
         id="foodType"
         onChange={(e) => {
           handleFeedChange(e.target.value, "foodType");
@@ -92,7 +93,7 @@ export default function Form({
       <TextField
         id="foodAmount"
         fullWidth
-        label="Food Amount"
+        label="Food Amount (g)"
         value={foodAmount}
         inputProps={numberFieldProps}
         margin="normal"

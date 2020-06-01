@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Table as MaterialTable } from "@material-ui/core";
+import Table from "@material-ui/core/Table";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
 
 import SortableTableHead from "./SortableTableHead";
 import SortableTableBody from "./SortableTableBody";
 
-Table.propTypes = {
+FeedingReport.propTypes = {
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -22,7 +22,7 @@ Table.propTypes = {
   ariaLabel: PropTypes.string,
 };
 
-export default function Table({ rows, ariaLabel }) {
+export default function FeedingReport({ rows, ariaLabel }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("time");
 
@@ -34,14 +34,14 @@ export default function Table({ rows, ariaLabel }) {
 
   return (
     <TableContainer component={Paper}>
-      <MaterialTable aria-label={ariaLabel}>
+      <Table aria-label={ariaLabel}>
         <SortableTableHead
           order={order}
           orderBy={orderBy}
           onRequestSort={handleRequestSort}
         />
         <SortableTableBody rows={rows} order={order} orderBy={orderBy} />
-      </MaterialTable>
+      </Table>
     </TableContainer>
   );
 }
