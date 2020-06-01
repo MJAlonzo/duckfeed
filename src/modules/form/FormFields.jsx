@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import TextField from "@material-ui/core/TextField";
+import AddressField from "../../components/AddressField";
 
 const numberFieldProps = {
   type: "number",
@@ -53,15 +54,12 @@ export default function Form({
           handleFeedChange(e.target.value, "time");
         }}
       />
-
-      <TextField
+      <AddressField
         id="location"
-        fullWidth
         label="Location"
         value={location}
-        margin="normal"
-        onChange={(e) => {
-          handleFeedChange(e.target.value, "location");
+        setAddress={(value) => {
+          handleFeedChange(value, "location");
         }}
       />
       <TextField

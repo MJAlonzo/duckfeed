@@ -7,7 +7,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import { db } from "../../core/firebase";
 import feedFactory from "./feedFactory";
-import Table from "../../components/Table/Table";
+import Table from "../../components/Table";
 
 const useStyles = makeStyles((theme) => ({
   innerGrid: {

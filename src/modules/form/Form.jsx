@@ -14,7 +14,7 @@ import Alert from "@material-ui/lab/Alert";
 
 import addFeeding from "./addFeeding";
 import FormFields from "./FormFields";
-import { SITE_KEY } from "../../constants/recaptcha";
+import { RECAPTCHA_SITE_KEY } from "../../constants";
 
 const recaptchaRef = React.createRef();
 
@@ -104,7 +104,7 @@ function Form() {
               <ReCAPTCHA
                 ref={recaptchaRef}
                 size="invisible"
-                sitekey={SITE_KEY}
+                sitekey={RECAPTCHA_SITE_KEY}
                 onChange={() => {
                   handleSubmit();
                 }}
