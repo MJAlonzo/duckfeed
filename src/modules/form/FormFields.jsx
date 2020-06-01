@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 import TextField from "@material-ui/core/TextField";
 
-import AddressField from "../../components/AddressField";
 import Select from "../../components/Select";
 
 const numberFieldProps = {
@@ -14,33 +13,38 @@ const numberFieldProps = {
 Form.propTypes = {
   feed: PropTypes.shape({
     id: PropTypes.string,
-    ducks: PropTypes.number,
+    ducks: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     date: PropTypes.string,
     time: PropTypes.string,
     location: PropTypes.string,
     foodType: PropTypes.string,
-    foodAmount: PropTypes.number,
+    foodAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  }),
+  formValidation: PropTypes.shape({
+    ducksIsValid: PropTypes.bool,
+    timeIsValid: PropTypes.bool,
+    dateIsValid: PropTypes.bool,
+    locationIsValid: PropTypes.bool,
+    foodTypeIsValid: PropTypes.bool,
+    foodAmountIsValid: PropTypes.bool,
   }),
   handleFeedChange: PropTypes.func,
 };
 
 export default function Form({
   feed: { ducks, date, time, location, foodType, foodAmount },
+  formValidation: {
+    ducksIsValid,
+    dateIsValid,
+    timeIsValid,
+    locationIsValid,
+    foodTypeIsValid,
+    foodAmountIsValid,
+  },
   handleFeedChange,
 }) {
   return (
     <>
-      <TextField
-        id="ducks"
-        fullWidth
-        label="How Many Ducks"
-        value={ducks}
-        inputProps={numberFieldProps}
-        margin="normal"
-        onChange={(e) => {
-          handleFeedChange(e.target.value, "ducks");
-        }}
-      />
       <TextField
         id="date"
         label="Date"
@@ -53,6 +57,7 @@ export default function Form({
         onChange={(e) => {
           handleFeedChange(e.target.value, "date");
         }}
+        error={!dateIsValid}
       />
       <TextField
         id="time"
@@ -69,14 +74,30 @@ export default function Form({
         onChange={(e) => {
           handleFeedChange(e.target.value, "time");
         }}
+        error={!timeIsValid}
       />
-      <AddressField
+      <TextField
         id="location"
+        fullWidth
         label="Location"
-        address={location}
-        setAddress={(value) => {
-          handleFeedChange(value, "location");
+        value={location}
+        margin="normal"
+        onChange={(e) => {
+          handleFeedChange(e.target.value, "location");
         }}
+        error={!locationIsValid}
+      />
+      <TextField
+        id="ducks"
+        fullWidth
+        label="How Many Ducks"
+        value={ducks}
+        inputProps={numberFieldProps}
+        margin="normal"
+        onChange={(e) => {
+          handleFeedChange(e.target.value, "ducks");
+        }}
+        error={!ducksIsValid}
       />
       <Select
         label="Food Type"
@@ -103,6 +124,7 @@ export default function Form({
             label: "Other",
           },
         ]}
+        error={!foodTypeIsValid}
       />
       <TextField
         id="foodAmount"
@@ -114,6 +136,7 @@ export default function Form({
         onChange={(e) => {
           handleFeedChange(e.target.value, "foodAmount");
         }}
+        error={!foodAmountIsValid}
       />
     </>
   );

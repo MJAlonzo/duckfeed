@@ -51,9 +51,9 @@ function SortableTableBody({ rows, order, orderBy }) {
     <TableBody>
       {stableSort(rows, getComparator(order, orderBy)).map((row) => (
         <TableRow key={row.id}>
-          <TableCell align="right">{row.ducks}</TableCell>
           <TableCell>{row.dateTime}</TableCell>
           <TableCell>{row.location}</TableCell>
+          <TableCell align="right">{row.ducks}</TableCell>
           <TableCell>{row.foodType}</TableCell>
           <TableCell align="right">{row.foodAmount}</TableCell>
         </TableRow>

@@ -16,11 +16,12 @@ Select.propTypes = {
       label: PropTypes.string,
     })
   ),
+  error: PropTypes.bool,
 };
 
-export default function Select({ value, onChange, label, id, options }) {
+export default function Select({ value, onChange, label, id, options, error }) {
   return (
-    <FormControl fullWidth margin="normal">
+    <FormControl fullWidth margin="normal" error={error}>
       <InputLabel htmlFor={id}>{label}</InputLabel>
       <MaterialSelect
         native
@@ -31,6 +32,7 @@ export default function Select({ value, onChange, label, id, options }) {
           id,
         }}
       >
+        <option value=""></option>
         {options.map((option, index) => (
           <option key={`${index}-${value}-${label}`} value={option.value}>
             {option.label}

@@ -3,9 +3,9 @@ export default function feedFactory({ id, ducks, date, time, location, food }) {
 
   return {
     id,
-    ducks,
     dateTime: `${date} - ${time}`,
     location,
+    ducks,
     foodType: type,
     foodAmount: amount,
   };

@@ -8,21 +8,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 const headCells = [
-  { id: "ducks", numeric: true, disablePadding: false, label: "Ducks" },
-  { id: "dateTime", numeric: false, disablePadding: true, label: "Date Time" },
-  { id: "location", numeric: false, disablePadding: true, label: "Location" },
-  {
-    id: "foodType",
-    numeric: false,
-    disablePadding: true,
-    label: "Food Type",
-  },
-  {
-    id: "foodAmount",
-    numeric: true,
-    disablePadding: false,
-    label: "Food Amount (g)",
-  },
+  { id: "dateTime", numeric: false, label: "Date Time" },
+  { id: "location", numeric: false, label: "Location" },
+  { id: "ducks", numeric: true, label: "Ducks" },
+  { id: "foodType", numeric: false, label: "Food Type" },
+  { id: "foodAmount", numeric: true, label: "Food Amount (g)" },
 ];
 
 const useStyles = makeStyles((theme) => ({
