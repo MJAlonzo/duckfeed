@@ -1,7 +1,7 @@
-import firebase from "firebase";
+import { initializeApp } from "firebase";
 import { FIREBASE_INIT } from "./env";
 
-const firebaseApp = firebase.initializeApp({
+const firebaseApp = initializeApp({
   apiKey: FIREBASE_INIT.API_KEY,
   authDomain: FIREBASE_INIT.AUTH_DOMAIN,
   databaseUrl: FIREBASE_INIT.DATABASE_URL,
