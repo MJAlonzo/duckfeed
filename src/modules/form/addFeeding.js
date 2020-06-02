@@ -10,7 +10,7 @@ export default function addFeeding(feed, setNotification) {
     .then(() => {
       setNotification({
         open: true,
-        message: "Thanks for feeding the ducks!",
+        message: "Thanks for feeding the Ducks!",
         severity: "success",
       });
     })

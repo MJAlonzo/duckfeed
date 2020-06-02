@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
-import { Select as MaterialSelect } from "@material-ui/core";
+import Select from "@material-ui/core/Select";
 
-Select.propTypes = {
+Dropdown.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   label: PropTypes.string,
@@ -19,11 +19,18 @@ Select.propTypes = {
   error: PropTypes.bool,
 };
 
-export default function Select({ value, onChange, label, id, options, error }) {
+export default function Dropdown({
+  value,
+  onChange,
+  label,
+  id,
+  options,
+  error,
+}) {
   return (
     <FormControl fullWidth margin="normal" error={error}>
       <InputLabel htmlFor={id}>{label}</InputLabel>
-      <MaterialSelect
+      <Select
         native
         value={value}
         onChange={onChange}
@@ -38,7 +45,7 @@ export default function Select({ value, onChange, label, id, options, error }) {
             {option.label}
           </option>
         ))}
-      </MaterialSelect>
+      </Select>
     </FormControl>
   );
 }

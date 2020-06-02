@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import TextField from "@material-ui/core/TextField";
 
-import Select from "../../components/Select";
+import Dropdown from "../../components/Dropdown";
 
 const numberFieldProps = {
   type: "number",
@@ -99,7 +99,7 @@ export default function Form({
         }}
         error={!ducksIsValid}
       />
-      <Select
+      <Dropdown
         label="Food Type"
         id="foodType"
         onChange={(e) => {

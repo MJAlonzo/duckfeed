@@ -34,12 +34,12 @@ function stableSort(array, comparator) {
 SortableTableBody.propTypes = {
   rows: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      ducks: PropTypes.number,
+      id: PropTypes.number,
+      ducks: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       dateTime: PropTypes.string,
       location: PropTypes.string,
       foodType: PropTypes.string,
-      foodAmount: PropTypes.number,
+      foodAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     })
   ),
   order: PropTypes.string,
