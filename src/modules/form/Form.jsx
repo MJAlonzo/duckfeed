@@ -1,6 +1,8 @@
 import React, { useState, createRef, useEffect } from "react";
 import update from "immutability-helper";
 import ReCAPTCHA from "react-google-recaptcha";
+import _isEqual from "lodash/isEqual";
+import _omit from "lodash/omit";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -35,100 +37,128 @@ const initialNotification = {
   severity: "",
 };
 
-const date = new Date().toISOString().slice(0, 16);
+function getLocalDateTime() {
+  const localDateTimeString = new Date(
+    new Date().getTime() - new Date().getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .slice(0, 16);
+
+  return {
+    date: localDateTimeString.split("T")[0],
+    time: localDateTimeString.split("T")[1],
+  };
+}
 
 const initialFeed = {
   ducks: 0,
-  date: date.split("T")[0],
-  time: date.split("T")[1],
+  ...getLocalDateTime(),
   location: "",
   foodType: "",
   foodAmount: 0,
 };
 
+const initialFormValidation = {
+  ducksIsValid: true,
+  dateIsValid: true,
+  timeIsValid: true,
+  locationIsValid: true,
+  foodTypeIsValid: true,
+  foodAmountIsValid: true,
+};
+
 function Form() {
   const [feed, setFeed] = useState(initialFeed);
-  const [formValidation, setFormValidation] = useState({
-    ducksIsValid: true,
-    dateIsValid: true,
-    timeIsValid: true,
-    locationIsValid: true,
-    foodTypeIsValid: true,
-    foodAmountIsValid: true,
-  });
+  const [formValidation, setFormValidation] = useState(initialFormValidation);
 
   const [notification, setNotification] = useState(initialNotification);
-
-  const classes = useStyles();
+  const [canSubmit, setCanSubmit] = useState(false);
 
   useEffect(() => {
     getLocation(initialFeed, setFeed);
   }, []);
 
-  function handleFeedChange(value, key) {
+  useEffect(() => {
+    if (!_isEqual(_omit(feed, "location"), _omit(initialFeed, "location"))) {
+      setCanSubmit(true);
+    }
+  }, [feed]);
+
+  function handleFieldChange(field, value) {
     const newFeed = update(feed, {
-      [key]: { $set: value },
+      [field]: { $set: value },
     });
 
-    handleValidation(value, key);
+    handleValidation(field, value);
 
     setFeed(newFeed);
   }
 
-  function handleValidation(value, key) {
+  function validateField(field, value) {
     let isValid = true;
 
-    switch (key) {
-      case "ducks":
-        isValid = value > 0;
-        break;
-      case "foodAmount":
-        isValid = value > 0;
-        break;
+    switch (field) {
       case "date":
-        console.log(value);
-        isValid = value instanceof Date && !isNaN(value.valueOf());
+        isValid = !isNaN(new Date(value));
         break;
       case "time":
-        isValid = value && new Date(value).getTime() > 0;
+        isValid = !isNaN(new Date(`${getLocalDateTime().date}T${value}`));
         break;
       case "location":
         isValid = value !== "";
         break;
+      case "ducks":
+        isValid = value > 0;
+        break;
+
       case "foodType":
         isValid = value !== "";
+        break;
+      case "foodAmount":
+        isValid = value > 0;
         break;
       default:
         isValid = true;
     }
 
+    return isValid;
+  }
+
+  function handleValidation(field, value) {
+    const isValid = validateField(field, value);
     const newFormValidation = update(formValidation, {
-      [`${key}IsValid`]: { $set: isValid },
+      [`${field}IsValid`]: { $set: isValid },
     });
 
     setFormValidation(newFormValidation);
+
+    return isValid;
   }
 
   function handleDismissNotification() {
     setNotification(initialNotification);
   }
 
-  function canSubmit() {
-    return !Object.values(formValidation).some(
-      (fieldIsValid) => fieldIsValid === false
+  function validateForm() {
+    return !Object.keys(feed).some(
+      (field) => !handleValidation(field, feed[field])
     );
   }
 
   function handleSubmit() {
-    if (canSubmit()) {
+    if (validateForm()) {
       addFeeding(feed, setNotification);
+      reset();
     }
     recaptchaRef.current.reset();
   }
 
   function reset() {
     setFeed(initialFeed);
+    setFormValidation(initialFormValidation);
   }
+
+  const classes = useStyles();
 
   return (
     <div className={classes.formContainer}>
@@ -145,7 +175,7 @@ function Form() {
               <FormFields
                 feed={feed}
                 formValidation={formValidation}
-                handleFeedChange={handleFeedChange}
+                handleFieldChange={handleFieldChange}
               />
             </CardContent>
             <CardActions>
@@ -159,7 +189,7 @@ function Form() {
               <Button
                 variant="contained"
                 color="primary"
-                disabled={!canSubmit()}
+                disabled={!canSubmit}
                 onClick={() => {
                   recaptchaRef.current.execute();
                 }}

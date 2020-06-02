@@ -34,8 +34,7 @@ function Dashboard() {
   return (
     <Grid container>
       <Grid className={classes.innerGrid} item xs={12}>
-        <Typography variant="h4">Dashboard</Typography>
-        {`<Filter Row>`}
+        <Typography variant="h4">Duck Feeding Report</Typography>
         {feeds && feeds.length ? (
           <FeedingReport rows={feeds} ariaLabel="duck feeding report" />
         ) : (

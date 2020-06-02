@@ -28,7 +28,7 @@ Form.propTypes = {
     foodTypeIsValid: PropTypes.bool,
     foodAmountIsValid: PropTypes.bool,
   }),
-  handleFeedChange: PropTypes.func,
+  handleFieldChange: PropTypes.func,
 };
 
 export default function Form({
@@ -41,7 +41,7 @@ export default function Form({
     foodTypeIsValid,
     foodAmountIsValid,
   },
-  handleFeedChange,
+  handleFieldChange,
 }) {
   return (
     <>
@@ -55,7 +55,7 @@ export default function Form({
           shrink: true,
         }}
         onChange={(e) => {
-          handleFeedChange(e.target.value, "date");
+          handleFieldChange("date", e.target.value);
         }}
         error={!dateIsValid}
       />
@@ -72,7 +72,7 @@ export default function Form({
           step: 300, // 5 min
         }}
         onChange={(e) => {
-          handleFeedChange(e.target.value, "time");
+          handleFieldChange("time", e.target.value);
         }}
         error={!timeIsValid}
       />
@@ -83,7 +83,7 @@ export default function Form({
         value={location}
         margin="normal"
         onChange={(e) => {
-          handleFeedChange(e.target.value, "location");
+          handleFieldChange("location", e.target.value);
         }}
         error={!locationIsValid}
       />
@@ -95,7 +95,7 @@ export default function Form({
         inputProps={numberFieldProps}
         margin="normal"
         onChange={(e) => {
-          handleFeedChange(e.target.value, "ducks");
+          handleFieldChange("ducks", e.target.value);
         }}
         error={!ducksIsValid}
       />
@@ -103,7 +103,7 @@ export default function Form({
         label="Food Type"
         id="foodType"
         onChange={(e) => {
-          handleFeedChange(e.target.value, "foodType");
+          handleFieldChange("foodType", e.target.value);
         }}
         value={foodType}
         options={[
@@ -134,7 +134,7 @@ export default function Form({
         inputProps={numberFieldProps}
         margin="normal"
         onChange={(e) => {
-          handleFeedChange(e.target.value, "foodAmount");
+          handleFieldChange("foodAmount", e.target.value);
         }}
         error={!foodAmountIsValid}
       />
