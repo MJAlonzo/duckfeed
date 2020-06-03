@@ -14,11 +14,11 @@ FeedingReport.propTypes = {
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
-      ducks: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      ducks: PropTypes.number,
       dateTime: PropTypes.string,
       location: PropTypes.string,
       foodType: PropTypes.string,
-      foodAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      foodAmount: PropTypes.number,
     })
   ),
   ariaLabel: PropTypes.string,

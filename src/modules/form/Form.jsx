@@ -135,6 +135,14 @@ function Form() {
   }
 
   function handleDismissNotification() {
+    const closedNotification = update(notification, {
+      open: { $set: false },
+    });
+
+    setNotification(closedNotification);
+  }
+
+  function handleExitedNotification() {
     setNotification(initialNotification);
   }
 
@@ -210,6 +218,7 @@ function Form() {
       <Notification
         notification={notification}
         handleDismiss={handleDismissNotification}
+        handleExited={handleExitedNotification}
       />
     </div>
   );

@@ -8,13 +8,13 @@ export default function serverFeedFactory({
 }) {
   return {
     id: new Date().getTime(),
-    ducks,
+    ducks: parseInt(ducks),
     date,
     time,
     location,
     food: {
       type: foodType,
-      amount: foodAmount,
+      amount: parseInt(foodAmount),
     },
   };
 }
