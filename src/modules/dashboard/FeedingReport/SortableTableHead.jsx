@@ -8,9 +8,9 @@ import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 const headCells = [
-  { id: "dateTime", numeric: false, label: "Date Time" },
+  { id: "dateTime", numeric: false, label: "Date - Time" },
   { id: "location", numeric: false, label: "Location" },
-  { id: "ducks", numeric: true, label: "Ducks" },
+  { id: "ducks", numeric: true, label: "Number of Ducks" },
   { id: "foodType", numeric: false, label: "Food Type" },
   { id: "foodAmount", numeric: true, label: "Food Amount (g)" },
 ];

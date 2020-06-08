@@ -11,9 +11,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "@material-ui/lab/Alert";
 
+import Notification from "../../components/Notification";
 import addFeeding from "./addFeeding";
 import FormFields from "./FormFields";
 import getLocation from "./getLocation";
@@ -136,6 +135,14 @@ function Form() {
   }
 
   function handleDismissNotification() {
+    const closedNotification = update(notification, {
+      open: { $set: false },
+    });
+
+    setNotification(closedNotification);
+  }
+
+  function handleExitedNotification() {
     setNotification(initialNotification);
   }
 
@@ -211,21 +218,10 @@ function Form() {
       <Notification
         notification={notification}
         handleDismiss={handleDismissNotification}
+        handleExited={handleExitedNotification}
       />
     </div>
   );
 }
 
 export default Form;
-
-function Notification({ notification, handleDismiss }) {
-  const { open, severity, message } = notification;
-
-  return (
-    <Snackbar open={open} autoHideDuration={6000} onClose={handleDismiss}>
-      <Alert onClose={handleDismiss} severity={severity}>
-        {message}
-      </Alert>
-    </Snackbar>
-  );
-}

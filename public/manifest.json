@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Duck Feed Tracker",
+  "name": "A simple app allowing users to input information about their duck feeding sessions. Also, provides a report for reviewing the results of the feeding sessions.",
   "icons": [
     {
       "src": "favicon.ico",
