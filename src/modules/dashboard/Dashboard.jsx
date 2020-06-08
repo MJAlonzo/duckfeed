@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-import { db } from "../../core/firebase";
-import feedFactory from "./feedFactory";
+import useFetchFeeds from "../../utils/useFetchFeeds";
 import FeedingReport from "./FeedingReport";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,17 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Dashboard() {
-  const [feeds, setFeeds] = useState(null);
-
-  useEffect(() => {
-    db.collection("feeds")
-      .get()
-      .then((querySnapshot) => {
-        const feedsData = querySnapshot.docs.map((doc) => doc.data());
-        setFeeds(feedsData.map((feed) => feedFactory(feed)));
-      });
-  }, []);
-
+  const feeds = useFetchFeeds();
   const classes = useStyles();
 
   return (
